@@ -2,56 +2,56 @@
 <testng-results ignored="0" total="10" passed="10" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-06-18T10:29:24 EET" name="Default suite" finished-at="2025-06-18T10:30:05 EET" duration-ms="41301">
+  <suite started-at="2025-06-23T18:51:14 EET" name="Default suite" finished-at="2025-06-23T18:51:58 EET" duration-ms="44201">
     <groups>
     </groups>
-    <test started-at="2025-06-18T10:29:24 EET" name="Default test" finished-at="2025-06-18T10:30:05 EET" duration-ms="41301">
+    <test started-at="2025-06-23T18:51:14 EET" name="Default test" finished-at="2025-06-23T18:51:58 EET" duration-ms="44201">
       <class name="FinalProject.FinalProject.AppTest">
-        <test-method is-config="true" signature="mySetup()[pri:0, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:24 EET" name="mySetup" finished-at="2025-06-18T10:29:26 EET" duration-ms="2341" status="PASS">
+        <test-method is-config="true" signature="mySetup()[pri:0, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:14 EET" name="mySetup" finished-at="2025-06-23T18:51:17 EET" duration-ms="3191" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- mySetup -->
-        <test-method signature="HomepageAccessibility()[pri:1, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:27 EET" name="HomepageAccessibility" finished-at="2025-06-18T10:29:27 EET" duration-ms="53" status="PASS">
+        <test-method signature="HomepageAccessibility()[pri:1, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:17 EET" name="HomepageAccessibility" finished-at="2025-06-23T18:51:17 EET" duration-ms="240" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- HomepageAccessibility -->
-        <test-method signature="UserRegistrationProcess()[pri:2, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:27 EET" name="UserRegistrationProcess" finished-at="2025-06-18T10:29:35 EET" duration-ms="7992" status="PASS">
+        <test-method signature="UserRegistrationProcess()[pri:2, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:17 EET" name="UserRegistrationProcess" finished-at="2025-06-23T18:51:25 EET" duration-ms="8420" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- UserRegistrationProcess -->
-        <test-method signature="UserLoginFunctionality()[pri:3, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:35 EET" name="UserLoginFunctionality" finished-at="2025-06-18T10:29:39 EET" duration-ms="4692" status="PASS">
+        <test-method signature="UserLoginFunctionality()[pri:3, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:25 EET" name="UserLoginFunctionality" finished-at="2025-06-23T18:51:31 EET" duration-ms="5454" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- UserLoginFunctionality -->
-        <test-method signature="ProductSearchFunctionality()[pri:4, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:39 EET" name="ProductSearchFunctionality" finished-at="2025-06-18T10:29:41 EET" duration-ms="1316" status="PASS">
+        <test-method signature="ProductSearchFunctionality()[pri:4, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:31 EET" name="ProductSearchFunctionality" finished-at="2025-06-23T18:51:32 EET" duration-ms="1030" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ProductSearchFunctionality -->
-        <test-method signature="FilteringSearchResults()[pri:5, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:41 EET" name="FilteringSearchResults" finished-at="2025-06-18T10:29:42 EET" duration-ms="1598" status="PASS">
+        <test-method signature="FilteringSearchResults()[pri:5, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:32 EET" name="FilteringSearchResults" finished-at="2025-06-23T18:51:34 EET" duration-ms="1583" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- FilteringSearchResults -->
-        <test-method signature="ViewingProductDetails()[pri:6, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:42 EET" name="ViewingProductDetails" finished-at="2025-06-18T10:29:46 EET" duration-ms="3837" status="PASS">
+        <test-method signature="ViewingProductDetails()[pri:6, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:34 EET" name="ViewingProductDetails" finished-at="2025-06-23T18:51:38 EET" duration-ms="4424" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ViewingProductDetails -->
-        <test-method signature="AddingProductsToCart()[pri:7, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:46 EET" name="AddingProductsToCart" finished-at="2025-06-18T10:29:49 EET" duration-ms="2898" status="PASS">
+        <test-method signature="AddingProductsToCart()[pri:7, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:38 EET" name="AddingProductsToCart" finished-at="2025-06-23T18:51:40 EET" duration-ms="2135" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AddingProductsToCart -->
-        <test-method signature="ViewingAndModifyingShoppingCart()[pri:8, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:49 EET" name="ViewingAndModifyingShoppingCart" finished-at="2025-06-18T10:29:51 EET" duration-ms="1866" status="PASS">
+        <test-method signature="ViewingAndModifyingShoppingCart()[pri:8, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:40 EET" name="ViewingAndModifyingShoppingCart" finished-at="2025-06-23T18:51:42 EET" duration-ms="1873" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ViewingAndModifyingShoppingCart -->
-        <test-method signature="ProceedingToCheckout()[pri:9, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:51 EET" name="ProceedingToCheckout" finished-at="2025-06-18T10:29:59 EET" duration-ms="8264" status="PASS">
+        <test-method signature="ProceedingToCheckout()[pri:9, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:42 EET" name="ProceedingToCheckout" finished-at="2025-06-23T18:51:51 EET" duration-ms="8941" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ProceedingToCheckout -->
-        <test-method signature="ContactFormSubmission()[pri:10, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:29:59 EET" name="ContactFormSubmission" finished-at="2025-06-18T10:30:05 EET" duration-ms="6061" status="PASS">
+        <test-method signature="ContactFormSubmission()[pri:10, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:51 EET" name="ContactFormSubmission" finished-at="2025-06-23T18:51:57 EET" duration-ms="6594" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ContactFormSubmission -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:FinalProject.FinalProject.AppTest@4b45dcb8]" started-at="2025-06-18T10:30:05 EET" name="tearDown" finished-at="2025-06-18T10:30:05 EET" duration-ms="300" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:FinalProject.FinalProject.AppTest@19648c40]" started-at="2025-06-23T18:51:57 EET" name="tearDown" finished-at="2025-06-23T18:51:58 EET" duration-ms="264" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

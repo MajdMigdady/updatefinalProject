@@ -1,19 +1,26 @@
 package FinalProject.FinalProject;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import org.openqa.selenium.io.FileHandler;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,38 +33,31 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class AppTest {
-
-	WebDriver driver = new ChromeDriver();
-	String URL = "https://automationteststore.com/";
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	Random rand = new Random();
-	JavascriptExecutor js = (JavascriptExecutor) driver;
-	Connection con;
-	Statement stmt;
-	ResultSet rs;
-	String userFirstName;
-	String username;
-	String password = "Test@123";
+public class AppTest extends TestData{
 
 	@BeforeTest
 	public void mySetup() throws SQLException {
 
-		driver.get(URL);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
-
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/finalproject", "root", "1234");
-
+		setup();
 	}
 
 	@Test(priority = 1, enabled = true)
 	public void HomepageAccessibility() {
 		WebElement featured = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".maintext")));
 		boolean ActualHomeLoad = featured.isDisplayed();
-		boolean ExpectedHomeLoad = true;
 
-		Assert.assertEquals(ActualHomeLoad, ExpectedHomeLoad);
+		
+		File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		File destFile = new File("./screenshots/" + fileName);
+		try {
+			FileHandler.copy(srcFile, destFile);
+			System.out.println("✅ Screenshot saved: " + destFile.getPath());
+		} catch (IOException e) {
+			System.out.println("❌ Failed to save screenshot");
+			e.printStackTrace();
+		}
+
+		Assert.assertEquals(ActualHomeLoad, ExpectedHomeLoad,"❌ Failed to Access Home Page ");
 
 	}
 
@@ -72,23 +72,12 @@ public class AppTest {
 
 		// Fill registration form
 
-		String[] firstNames = { "mohammad", "ola", "khalid", "yasmine", "ayat", "alaa", "waleed", "Rama" };
-		String[] lastNames = { "yaser", "mustafa", "Mohammad", "abdullah", "sami", "omar" };
-
-		int RandomIndexForFirstName = rand.nextInt(firstNames.length);
-		int RandomIndexForLastName = rand.nextInt(lastNames.length);
-
-		userFirstName = firstNames[RandomIndexForFirstName];
-		String userLastName = lastNames[RandomIndexForLastName];
-
 		WebElement firstNamefield = driver.findElement(By.id("AccountFrm_firstname"));
 		firstNamefield.sendKeys(userFirstName);
 
 		WebElement lastNamefield = driver.findElement(By.id("AccountFrm_lastname"));
 		lastNamefield.sendKeys(userLastName);
 
-		int randomNumberForEmail = rand.nextInt(500);
-		String RANDOM_EMAIL = userFirstName + userLastName + randomNumberForEmail + "@example.com";
 		WebElement emailfeild = driver.findElement(By.id("AccountFrm_email"));
 		emailfeild.sendKeys(RANDOM_EMAIL);
 
@@ -126,7 +115,6 @@ public class AppTest {
 		WebElement postcodeFeild = driver.findElement(By.id("AccountFrm_postcode"));
 		postcodeFeild.sendKeys("11181");
 
-		username = userFirstName + "_" + UUID.randomUUID().toString().substring(0, 4);
 		WebElement usernameFeild = driver.findElement(By.id("AccountFrm_loginname"));
 		usernameFeild.sendKeys(username);
 
@@ -150,23 +138,19 @@ public class AppTest {
 		stmt = con.createStatement();
 		int rowsInserted = stmt.executeUpdate(query);
 		System.out.println("Rows inserted: " + rowsInserted);
-		
 
-		String ExpectedRegister = "YOUR ACCOUNT HAS BEEN CREATED!";
 		String successText = driver.findElement(By.cssSelector(".maintext")).getText();
-		Assert.assertTrue(successText.contains(ExpectedRegister), " User Registration Failed");
+		Assert.assertTrue(successText.contains(ExpectedRegister), " ❌ Failed In User Registration ");
 
 	}
- 
+
 	@Test(priority = 3, enabled = true)
 	public void UserLoginFunctionality() throws InterruptedException {
 
-		
-		Actions action = new Actions(driver);
 		WebElement MouseHover = driver.findElement(By.id("customer_menu_top"));
 		action.moveToElement(MouseHover).build().perform();
-		
-		WebElement dropdownlogoff = driver.findElement(By.linkText("Not "+userFirstName+"? Logoff"));
+
+		WebElement dropdownlogoff = driver.findElement(By.linkText("Not " + userFirstName + "? Logoff"));
 		dropdownlogoff.click();
 
 		WebElement LoginButton = driver.findElement(By.linkText("Login or register"));
@@ -182,10 +166,9 @@ public class AppTest {
 		WebElement ContinuoButton = driver.findElement(By.xpath("//button[@title='Login']"));
 		ContinuoButton.click();
 
-		String ExpectedLogin = "MY ACCOUNT";
 		WebElement featured = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".maintext")));
 
-		Assert.assertTrue(featured.getText().contains(ExpectedLogin), " User Login Failed");
+		Assert.assertTrue(featured.getText().contains(ExpectedLogin), "❌ Failed In User Login ");
 
 	}
 
@@ -199,7 +182,6 @@ public class AppTest {
 
 		List<WebElement> searchResult = driver.findElements(By.className("fixed_wrapper"));
 
-		int ExpextedProductCount = 0;
 
 		for (int i = 0; i < searchResult.size(); i++) {
 			String text = searchResult.get(i).getText().toLowerCase();
@@ -209,7 +191,7 @@ public class AppTest {
 				ExpextedProductCount++;
 			}
 		}
-		Assert.assertEquals(searchResult.size(), ExpextedProductCount);
+		Assert.assertEquals(searchResult.size(), ExpextedProductCount,"❌ Failed to search prouduct ");
 	}
 
 	@Test(priority = 5, enabled = true)
@@ -241,22 +223,15 @@ public class AppTest {
 			}
 		}
 
-		Assert.assertTrue(isSorted, "Prices are not sorted from Low to High");
+		Assert.assertTrue(isSorted, "❌ Prices are not sorted from Low to High");
 	}
 
 	@Test(priority = 6, enabled = true)
 	public void ViewingProductDetails() throws InterruptedException {
 
+		// Step 1:Select one random product from the "Latest Products" section on the homepage.
+
 		driver.get(URL);
-
-		String[] listOfItems = {
-				"img[src='//automationteststore.com/image/thumbnails/18/6a/demo_product18_jpg-100013-250x250.jpg']\r\n",
-				"body > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > section:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > a:nth-child(2) > img:nth-child(1)",
-				"img[src='//automationteststore.com/image/thumbnails/18/6f/demo_product16_1_jpg-100091-250x250.jpg']",
-				"img[src='//automationteststore.com/image/thumbnails/18/6d/demo_product17_jpg-100052-250x250.jpg']" };
-
-		int randomItems = rand.nextInt(listOfItems.length);
-		String randomLatestProducts = listOfItems[randomItems];
 
 		js.executeScript("window.scrollBy(0,1300)");
 		Thread.sleep(1000);
@@ -274,11 +249,11 @@ public class AppTest {
 		WebElement availability = driver.findElement(By.className("cart"));
 
 		// Assertions
-		Assert.assertTrue(productTitle.isDisplayed(), "Product title is not displayed.");
-		Assert.assertTrue(productImage.isDisplayed(), "Product image is not displayed.");
-		Assert.assertTrue(price.isDisplayed(), "Product price is not displayed.");
-		Assert.assertTrue(availability.isDisplayed(), "Availability info is not displayed.");
-		Assert.assertTrue(descriptionsection.isDisplayed(), "description is not displayed. ");
+		Assert.assertTrue(productTitle.isDisplayed(), "❌ Product title is not displayed.");
+		Assert.assertTrue(productImage.isDisplayed(), "❌ Product image is not displayed.");
+		Assert.assertTrue(price.isDisplayed(), "❌ Product price is not displayed.");
+		Assert.assertTrue(availability.isDisplayed(), "❌ Availability info is not displayed.");
+		Assert.assertTrue(descriptionsection.isDisplayed(), "❌ description is not displayed. ");
 
 	}
 
@@ -291,14 +266,13 @@ public class AppTest {
 
 		WebElement TheCartsection = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart")));
 
-		Assert.assertTrue(TheCartsection.isDisplayed(), " The product did not add to the cart ");
+		Assert.assertTrue(TheCartsection.isDisplayed(), "❌ The product did not add to the cart ");
 
 	}
 
 	@Test(priority = 8, enabled = true)
 	public void ViewingAndModifyingShoppingCart() throws InterruptedException {
 
-		String ExpectedQuantity = String.valueOf(3);
 
 		Thread.sleep(500);
 		WebElement quantityDiv = wait
@@ -318,17 +292,17 @@ public class AppTest {
 		WebElement ActualtotalPrice = driver.findElement(By.cssSelector(
 				"body > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > form:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(6)"));
 
-		String priceForunit = UnitPrice.getText().replace("$", "").trim();
-		;
+       String priceForunit = UnitPrice.getText().replace("$", "").trim();
+		
 		double intPrice = Double.parseDouble(priceForunit);
 
 		String priceFortotal = ActualtotalPrice.getText().replace("$", "").trim();
-		;
+		
 		double ActualTotalPrice = Double.parseDouble(priceFortotal);
 
 		double ExpectedtotalPrice = intPrice * 3.0;
 
-		Assert.assertEquals(ActualTotalPrice, ExpectedtotalPrice);
+		Assert.assertEquals(ActualTotalPrice, ExpectedtotalPrice,"❌ Failed in shopping cart");
 
 	}
 
@@ -359,17 +333,17 @@ public class AppTest {
 		// checkout
 		WebElement checkout2 = driver.findElement(By.id("cart_checkout2"));
 		checkout2.click();
-
+ 
+		Thread.sleep(1000);
 		WebElement confcheckout = driver.findElement(By.id("checkout_btn"));
 		confcheckout.click();
 
 		WebElement messageElement = wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Your Order Has Been Processed!')]")));
 
-		String Expectedcheckout = "YOUR ORDER HAS BEEN PROCESSED!";
 		String Actualcheckout = messageElement.getText();
 
-		Assert.assertEquals(Actualcheckout, Expectedcheckout);
+		Assert.assertEquals(Actualcheckout, Expectedcheckout,"❌ Failed in checkout");
 
 	}
 
@@ -402,17 +376,15 @@ public class AppTest {
 		WebElement confirmation = driver.findElement(By.cssSelector(".mb40"));
 		String ActualMessage = confirmation.getText().trim();
 
-		String expectedMessage = "Your enquiry has been successfully sent to the store owner!";
-		Assert.assertTrue(ActualMessage.contains(expectedMessage),
-				"Confirmation message does not contain expected text.");
+		Assert.assertTrue(ActualMessage.contains(expectedMessage_ContactUs),
+				"❌ Confirmation message does not contain expected text.");
 	}
 
-	
 	@AfterTest
 	public void tearDown() {
-	    if (driver != null) {
-	        driver.quit(); 
-	    }
+		if (driver != null) {
+			driver.quit();
+		}
 	}
 
 }
